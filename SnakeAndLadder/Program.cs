@@ -8,8 +8,8 @@ namespace SnakeAndLadder
         {
             Console.WriteLine("Welcome to Snake and Ladder");
             const int NO_PLAY = 1;
-            const int LADDER = 2;
-            const int SNAKE_BITE = 3;
+            const int MOVES_AHEAD = 2;
+            const int MOVES_BEHIND = 3;
             int position = 0;
 
             while (position <= 100)
@@ -17,28 +17,31 @@ namespace SnakeAndLadder
                 Random random = new Random();
                 int dice = random.Next(1, 7);
                 int checkOption = random.Next(1, 4);
+                int previousPosition = position;
                 switch (checkOption)
                 {
                     case NO_PLAY:
                         position = 0;
                         break;
-                    case LADDER:
+                    case MOVES_AHEAD:
                         position = position + dice;
                         break;
-                    case SNAKE_BITE:
+                    case MOVES_BEHIND:
                         position = position - dice;
                         break;
+
                     default:
                         position = 0;
                         break;
                 }
-                if (position < 0)
+                if (position > 100)
                 {
-                    Console.WriteLine("Player restarts from 0");
+                    position = previousPosition;
+                    Console.WriteLine("PLAYER STAYS IN SAME POSITION: " + position);
                 }
                 else
                 {
-                    Console.WriteLine("Player stays in same postion");
+                    position = 100;
                 }
             }
         }

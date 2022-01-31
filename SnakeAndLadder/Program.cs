@@ -10,9 +10,9 @@ namespace SnakeAndLadder
             const int NO_PLAY = 1;
             const int MOVES_AHEAD = 2;
             const int MOVES_BEHIND = 3;
+            int DICE_COUNT = 0;
             int position = 0;
-
-            while (position <= 100)
+            while (position < 100)
             {
                 Random random = new Random();
                 int dice = random.Next(1, 7);
@@ -37,13 +37,12 @@ namespace SnakeAndLadder
                 if (position > 100)
                 {
                     position = previousPosition;
-                    Console.WriteLine("PLAYER STAYS IN SAME POSITION: " + position);
+                    Console.WriteLine("Dice poition after role " + dice);
+
                 }
-                else
-                {
-                    position = 100;
-                }
+
             }
+            Console.WriteLine("Number of dice was played :" + DICE_COUNT);
         }
     }
 }

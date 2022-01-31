@@ -2,47 +2,48 @@
 
 namespace SnakeAndLadder
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Snake and Ladder");
-            const int NO_PLAY = 1;
-            const int MOVES_AHEAD = 2;
-            const int MOVES_BEHIND = 3;
-            int DICE_COUNT = 0;
-            int position = 0;
-            while (position < 100)
+            SnakeAndLadder player1 = new SnakeAndLadder();
+            SnakeAndLadder player2 = new SnakeAndLadder();
+            Random random = new Random();
+            int start = random.Next(1, 3);
+            bool turn = true;
+            if (start == 1)
+                turn = true;
+            if (start == 2)
+                turn = false;
+            bool flag = true;
+            int pos1 = 0, pos2 = 0;
+            while (flag)
             {
-                Random random = new Random();
-                int dice = random.Next(1, 7);
-                int checkOption = random.Next(1, 4);
-                int previousPosition = position;
-                switch (checkOption)
+                if (turn)
                 {
-                    case NO_PLAY:
-                        position = 0;
-                        break;
-                    case MOVES_AHEAD:
-                        position = position + dice;
-                        break;
-                    case MOVES_BEHIND:
-                        position = position - dice;
-                        break;
-
-                    default:
-                        position = 0;
-                        break;
+                    pos1 = player1.Play();
+                    turn = false;
+                    Console.WriteLine("this was player 1 turn and he was in {0}", pos1);
                 }
-                if (position > 100)
+                else
                 {
-                    position = previousPosition;
-                    Console.WriteLine("Dice poition after role " + dice);
-
+                    pos2 = player2.Play();
+                    turn = true;
+                    Console.WriteLine("this was player 2 turn and he was in {0}", pos2);
                 }
+                if (pos1 == 100)
+                {
+                    Console.WriteLine("Player1 have won the game\n");
+                    flag = false;
+                }
+                if (pos2 == 100)
+                {
+                    Console.WriteLine("Player2 have won the game\n");
+                    flag = false;
+                }
+
 
             }
-            Console.WriteLine("Number of dice was played :" + DICE_COUNT);
         }
     }
 }
